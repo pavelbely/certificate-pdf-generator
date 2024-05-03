@@ -1,8 +1,10 @@
 import { URL } from 'node:url';
 import express from 'express';
-import { createCanvas, loadImage } from 'canvas';
+import { registerFont, createCanvas, loadImage } from 'canvas';
 import path from 'path';
 // import * as fs from 'fs';
+
+registerFont('./assets/NotoSans-Regular.ttf', { family: 'Sans' });
 
 const { NODE_ENV } = process.env;
 
@@ -24,7 +26,8 @@ app.get('/certificate', async (req, res) => {
   const backgroundImage = await loadImage(imagePath);
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
-  ctx.font = `30px ${NODE_ENV === 'production' ? 'Noto Sans' : 'Sans'}`;
+  
+  ctx.font = '30px Noto Sans';
   ctx.fillStyle = 'black';
   ctx.fillText(`${'Martin'} ${'Belyj'}`, 130, 420);
 
