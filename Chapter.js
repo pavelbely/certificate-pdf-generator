@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const ChapterSchema = new mongoose.Schema({
   id: { type: Number, required: true },
@@ -10,6 +10,6 @@ const ChapterSchema = new mongoose.Schema({
   },
 });
 
-const Chapter = mongoose.model("Chapter", ChapterSchema, "chapters");
+const Chapter = mongoose.model('Chapter', ChapterSchema, 'chapters');
 
 export default Chapter;
