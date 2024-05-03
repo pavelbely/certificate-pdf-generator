@@ -4,6 +4,8 @@ import { createCanvas, loadImage } from 'canvas';
 import path from 'path';
 // import * as fs from 'fs';
 
+const { NODE_ENV } = process.env;
+
 const __dirname = new URL('.', import.meta.url).pathname;
 
 const app = express();
@@ -22,7 +24,7 @@ app.get('/certificate', async (req, res) => {
   const backgroundImage = await loadImage(imagePath);
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
-  ctx.font = '30px Sans';
+  ctx.font = `30px ${NODE_ENV === 'production' ? 'Noto Sans' : 'Sans'}`;
   ctx.fillStyle = 'black';
   ctx.fillText(`${'Martin'} ${'Belyj'}`, 130, 420);
 
