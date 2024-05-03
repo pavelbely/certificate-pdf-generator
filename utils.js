@@ -17,7 +17,6 @@ const validateChapterBuyer = async (chapterId, newNameRu, newNameHe) => {
   }
 };
 
-
 /*
 Update buyer in the database
 parameters: chapter - mongoose document of the chapter
@@ -27,7 +26,7 @@ returns: updated buyer field from the database or throws an error if the buyer a
 */
 const updateBuyer = async (chapter, newNameRu, newNameHe) => {
   // If the buyer's name is not provided in the database, update it
-  if (!(chapter.buyer?.nameRu || chapter.buyer?.nameHe)) {
+  if (isEmpty(chapter.buyer)) {
     chapter.buyer = {
       nameRu: newNameRu,
       nameHe: newNameHe,
@@ -42,7 +41,18 @@ const updateBuyer = async (chapter, newNameRu, newNameHe) => {
 
 //If the buyer's name is not provided in the query, get it from the database
 const getBuyer = async (chapter) => {
+  if (isEmpty(chapter.buyer)) {
+    return {
+      nameRu: '',
+      nameHe: '',
+    };
+  }
   return chapter.buyer;
+};
+
+const isEmpty = (obj) => {
+  if (Object.values(obj).every((value) => value === undefined)) return true;
+  return false;
 };
 
 export default validateChapterBuyer;
