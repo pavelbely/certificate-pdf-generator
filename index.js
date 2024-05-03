@@ -4,12 +4,11 @@ import { registerFont, createCanvas, loadImage } from 'canvas';
 import path from 'path';
 // import * as fs from 'fs';
 
-const fontPath = path.join(__dirname, '/assets/NotoSans-Regular.ttf');
-registerFont(fontPath, { family: 'Sans' });
-
 const { NODE_ENV } = process.env;
 
 const __dirname = new URL('.', import.meta.url).pathname;
+const fontPath = path.join(__dirname, '/assets/NotoSans-Regular.ttf');
+registerFont(fontPath, { family: 'Noto Sans' });
 
 const app = express();
 const PORT = process.env.PORT || 3000;
