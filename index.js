@@ -4,7 +4,7 @@ import { createCanvas, loadImage } from 'canvas';
 import path from 'path';
 // import * as fs from 'fs';
 
-const __dirname = new URL('.', import.meta.url).pathname;
+const __dirname = import.meta.dirname;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,16 +15,16 @@ app.get('/', async (req, res) => {
 
 // TODO change to post when finish testing
 app.get('/create-pdf', async (req, res) => {
-  const canvas = createCanvas(800, 600, 'pdf');
+  const canvas = createCanvas(2339, 1654, 'pdf');
   const ctx = canvas.getContext('2d');
 
   const imagePath = path.join(__dirname, '/assets/bg.png');
   const backgroundImage = await loadImage(imagePath);
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
-  ctx.font = '40px Arial';
-  ctx.fillStyle = 'white';
-  ctx.fillText('Hello, World!', 50, 100);
+  ctx.font = '30px Arial';
+  ctx.fillStyle = 'black';
+  ctx.fillText(`${'Martin'} ${'Belyj'}`, 130, 420);
 
   const pdfStream = canvas.createPDFStream();
   
