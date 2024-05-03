@@ -2,6 +2,8 @@ import { URL } from 'node:url';
 import express from 'express';
 import { createCanvas, loadImage } from 'canvas';
 import path from 'path';
+import mongoose from 'mongoose';
+import Buyer from './Buyer.js';
 // import * as fs from 'fs';
 
 const __dirname = import.meta.dirname;
@@ -14,7 +16,7 @@ app.get('/', async (req, res) => {
 });
 
 // TODO change to post when finish testing
-app.get('/create-pdf', async (req, res) => {
+app.get('/certificate', async (req, res) => {
   const canvas = createCanvas(2339, 1654, 'pdf');
   const ctx = canvas.getContext('2d');
 
