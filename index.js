@@ -4,7 +4,8 @@ import { registerFont, createCanvas, loadImage } from 'canvas';
 import path from 'path';
 // import * as fs from 'fs';
 
-registerFont('./assets/NotoSans-Regular.ttf', { family: 'Sans' });
+const fontPath = path.join(__dirname, '/assets/NotoSans-Regular.ttf');
+registerFont(fontPath, { family: 'Sans' });
 
 const { NODE_ENV } = process.env;
 
