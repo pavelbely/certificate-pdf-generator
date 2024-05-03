@@ -33,7 +33,7 @@ app.get('/certificate', async (req, res) => {
   res.attachment('certificate.pdf');
   pdfStream.pipe(res);
 
-  // pdfStream.pipe(fs.createWriteStream('output.pdf'));
+  // pdfStream.pipe(fs.createWriteStream('certificate.pdf'));
   // res.send('PDF generated!');
 });
 
