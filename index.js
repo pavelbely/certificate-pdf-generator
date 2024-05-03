@@ -3,7 +3,7 @@ import express from 'express';
 import { createCanvas, loadImage } from 'canvas';
 import path from 'path';
 import mongoose from 'mongoose';
-import Buyer from './Buyer.js';
+import Chapter from './Chapter.js';
 // import * as fs from 'fs';
 
 const __dirname = import.meta.dirname;
