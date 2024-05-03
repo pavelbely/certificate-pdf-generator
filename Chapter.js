@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 
 const ChapterSchema = new mongoose.Schema({
-  id: { type: Number, required: true },
   nameRu: { type: String, min: 2 },
   nameHe: { type: String, min: 2 },
   buyer: {

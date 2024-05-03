@@ -8,8 +8,7 @@ parameters: chapterId - the id of the chapter in db
 returns: the buyer's name in hebrew and russian
 */
 const validateChapterBuyer = async (chapterId, nameRu, nameHe) => {
-  const chapterDoc = await Chapter.findOne({ id: chapterId });
-  console.log(nameRu, nameHe);
+  const chapterDoc = await Chapter.findById(chapterId);
   // If the buyer's name is provided in the query try updating it in the database
   if (nameRu || nameHe) {
     // TODO implement translation or an equivalent
@@ -28,7 +27,6 @@ parameters: chapter - mongoose document of the chapter
 returns: updated buyer field from the database or throws an error if the buyer already exists
 */
 const updateBuyer = async (chapter, nameRu, nameHe) => {
-  console.log(chapter.buyer);
   // If the buyer's name is not provided in the database, update it
   if (!(chapter.buyer?.nameRu || chapter.buyer?.nameHe)) {
     chapter.buyer = {
@@ -39,7 +37,6 @@ const updateBuyer = async (chapter, nameRu, nameHe) => {
     return chapter.buyer;
     // If the buyer's name is already provided in the database, throw an error
   } else {
-    console.log('exists');
     throw new Error('Buyer already exists');
   }
 };
