@@ -4,7 +4,7 @@ import { createCanvas, loadImage } from 'canvas';
 import path from 'path';
 // import * as fs from 'fs';
 
-const __dirname = import.meta.dirname;
+const __dirname = new URL('.', import.meta.url).pathname;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,13 +22,13 @@ app.get('/create-pdf', async (req, res) => {
   const backgroundImage = await loadImage(imagePath);
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
-  ctx.font = '30px Arial';
+  ctx.font = '30px Sans';
   ctx.fillStyle = 'black';
   ctx.fillText(`${'Martin'} ${'Belyj'}`, 130, 420);
 
   const pdfStream = canvas.createPDFStream();
   
-  res.attachment('pdfname.pdf');
+  res.attachment('certificate.pdf');
   pdfStream.pipe(res);
 
   // pdfStream.pipe(fs.createWriteStream('output.pdf'));
