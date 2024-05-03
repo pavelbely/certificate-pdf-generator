@@ -4,6 +4,7 @@ import { createCanvas, loadImage } from 'canvas';
 import path from 'path';
 import mongoose from 'mongoose';
 import Chapter from './Chapter.js';
+import validateChapterBuyer from './utils.js';
 // import * as fs from 'fs';
 
 const __dirname = import.meta.dirname;
@@ -23,28 +24,11 @@ app.get('/certificate', async (req, res) => {
     return;
   }
   //Getting the buyer's name from the query if it exists
-  const nameRu = req.query.nameRu;
-  const nameHe = req.query.nameHe;
-  const chapterDoc = await Chapter.findOne({ id: +req.query.id });
-  if (nameRu || nameHe) {
-    // TODO implement translation or an equivalent
-
-    //Update buyer's name in the database if it's empty for given chapter
-    if (!(chapterDoc.buyer?.nameRu || chapterDoc.buyer?.nameHe)) {
-      chapterDoc.buyer = { nameRu: req.query.nameRu, nameHe: req.query.nameHe };
-      await chapterDoc.save();
-    } else {
-      //TODO already bought
-    }
-  }
-  //If the buyer's name is not provided in the query, get it from the database 
-  else {
-    if (!(chapterDoc.buyer?.nameRu || chapterDoc.buyer?.nameHe)) {
-      nameRu = chapterDoc.buyer.nameRu;
-      nameHe = chapterDoc.buyer.nameHe;
-    }
-  }
-
+  const { nameRu, nameHe } = req.query;
+  //Validating the buyer's name
+  const buyer = await validateChapterBuyer(req.query.id, nameRu, nameHe);
+  //TODO ERROR HANDLING if the buyer already exists
+  
   const canvas = createCanvas(2339, 1654, 'pdf');
   const ctx = canvas.getContext('2d');
 
