@@ -26,7 +26,13 @@ app.get('/certificate', async (req, res) => {
   //Getting the buyer's name from the query if it exists
   const { nameRu, nameHe } = req.query;
   //Validating the buyer's name
-  const buyer = await validateChapterBuyer(req.query.id, nameRu, nameHe);
+  let buyer;
+  try{
+    buyer = await validateChapterBuyer(req.query.id, nameRu, nameHe);
+  } catch (error) {
+    res.status(400).send(error.message);
+    return;
+  }
   //TODO ERROR HANDLING if the buyer already exists
   
   const canvas = createCanvas(2339, 1654, 'pdf');
