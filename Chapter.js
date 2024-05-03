@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
-const BuyerSchema = new mongoose.Schema({
+const ChapterSchema = new mongoose.Schema({
     nameRu:{type:String, required:true, min:2},
     nameHe:{type:String, required:false, min:2},
 })
 
-const Buyer = mongoose.model("Buyer",BuyerSchema,'buyers');
+const Chapter = mongoose.model("Chapter",ChapterSchema,'chapters');
 
-export default Buyer;
+export default Chapter;
