@@ -4,7 +4,7 @@ import { createCanvas, loadImage } from 'canvas';
 import path from 'path';
 // import * as fs from 'fs';
 
-const __dirname = new URL('.', import.meta.url).pathname;
+const __dirname = import.meta.dirname;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
