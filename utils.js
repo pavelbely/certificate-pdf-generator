@@ -50,9 +50,9 @@ const getBuyer = async (chapter) => {
   return chapter.buyer;
 };
 
+//return empty if all the values of an object are undefined
 const isEmpty = (obj) => {
-  if (Object.values(obj).every((value) => value === undefined)) return true;
-  return false;
+  return Object.values(obj).every((value) => value === undefined);
 };
 
 export default validateChapterBuyer;
