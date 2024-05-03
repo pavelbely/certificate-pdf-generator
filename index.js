@@ -14,7 +14,7 @@ app.get('/', async (req, res) => {
 });
 
 // TODO change to post when finish testing
-app.get('/create-pdf', async (req, res) => {
+app.get('/certificate', async (req, res) => {
   const canvas = createCanvas(2339, 1654, 'pdf');
   const ctx = canvas.getContext('2d');
 
