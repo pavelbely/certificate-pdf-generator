@@ -19,7 +19,6 @@ app.get('/', async (req, res) => {
 // TODO change to post when finish testing
 app.get('/certificate', async (req, res) => {
   if (!req.query.id) {
-    //TODO ERROR HANDLING
     res.status(400).send('Missing id');
     return;
   }
@@ -27,14 +26,13 @@ app.get('/certificate', async (req, res) => {
   const { nameRu, nameHe } = req.query;
   //Validating the buyer's name
   let buyer;
-  try{
+  try {
     buyer = await validateChapterBuyer(req.query.id, nameRu, nameHe);
   } catch (error) {
     res.status(400).send(error.message);
     return;
   }
-  //TODO ERROR HANDLING if the buyer already exists
-  
+
   const canvas = createCanvas(2339, 1654, 'pdf');
   const ctx = canvas.getContext('2d');
 
@@ -44,12 +42,12 @@ app.get('/certificate', async (req, res) => {
 
   ctx.font = '30px Arial';
   ctx.fillStyle = 'black';
-  ctx.fillText(`${'Martin'} ${'Belyj'}`, 130, 420);
+  ctx.fillText(`${buyer.nameRu}`, 130, 420);
+  ctx.fillText(`${buyer.nameHe}`, 2030, 420);
 
   const pdfStream = canvas.createPDFStream();
-  
-  res.attachment('pdfname.pdf');
   pdfStream.pipe(res);
+  res.attachment('pdfname.pdf');
 
   // pdfStream.pipe(fs.createWriteStream('output.pdf'));
   // res.send('PDF generated!');

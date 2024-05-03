@@ -7,12 +7,11 @@ parameters: chapterId - the id of the chapter in db
             nameHe - the buyer's name in Hebrew (optional)
 returns: the buyer's name in hebrew and russian
 */
-const validateChapterBuyer = async (chapterId, nameRu, nameHe) => {
+const validateChapterBuyer = async (chapterId, newNameRu, newNameHe) => {
   const chapterDoc = await Chapter.findById(chapterId);
   // If the buyer's name is provided in the query try updating it in the database
-  if (nameRu || nameHe) {
-    // TODO implement translation or an equivalent
-    return await updateBuyer(chapterDoc, nameRu, nameHe);
+  if (newNameRu || newNameHe) {
+    return await updateBuyer(chapterDoc, newNameRu, newNameHe);
   } else {
     return await getBuyer(chapterDoc);
   }
@@ -26,12 +25,12 @@ parameters: chapter - mongoose document of the chapter
             nameHe - the buyer's name in Hebrew
 returns: updated buyer field from the database or throws an error if the buyer already exists
 */
-const updateBuyer = async (chapter, nameRu, nameHe) => {
+const updateBuyer = async (chapter, newNameRu, newNameHe) => {
   // If the buyer's name is not provided in the database, update it
   if (!(chapter.buyer?.nameRu || chapter.buyer?.nameHe)) {
     chapter.buyer = {
-      nameRu: nameRu,
-      nameHe: nameHe,
+      nameRu: newNameRu,
+      nameHe: newNameHe,
     };
     await chapter.save();
     return chapter.buyer;
