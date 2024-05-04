@@ -10,12 +10,12 @@ const ChapterSchema = new mongoose.Schema({
   },
 });
 
-ChapterSchema.methods.maybeSetBuyer = async (firstName, lastName) => {
+ChapterSchema.method('maybeSetBuyer',async function maybeSetBuyer(firstName, lastName){
   if (!firstName || !lastName) {
     return;
   }
   // TODO lastName
-  if (this.buyer?.firstName || this.buyer?.lastName) {
+  if (this?.buyer?.firstName || this?.buyer?.lastName) {
     throw new Error('Buyer already set')
   }
   this.buyer = {
@@ -23,7 +23,7 @@ ChapterSchema.methods.maybeSetBuyer = async (firstName, lastName) => {
     lastName,
   };
   await this.save();
-};
+});
 
 const Chapter = mongoose.model('Chapter', ChapterSchema);
 
