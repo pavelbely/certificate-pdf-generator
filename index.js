@@ -40,6 +40,7 @@ app.get('/certificate', async (req, res) => {
   // if (!chapter.buyer) { // TODO
   if (!buyer?.firstName || !buyer?.lastName) {
     res.status(400).send('Buyer not set');
+    return;
   }
   const pdfStream = await drawPdf(buyer);
   pdfStream.pipe(res);
