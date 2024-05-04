@@ -12,7 +12,7 @@ parameters: chapterId - the id of the chapter in db
             nameHe - the buyer's name in Hebrew (optional)
 returns: the buyer's name in hebrew and russian
 */
-const validateChapterBuyer = async (chapterId, newNameRu, newNameHe) => {
+export const validateChapterBuyer = async (chapterId, newNameRu, newNameHe) => {
   const chapterDoc = await Chapter.findById(chapterId);
   // If the buyer's name is provided in the query try updating it in the database
   if (newNameRu || newNameHe) {
@@ -60,7 +60,6 @@ const isEmpty = (obj) => {
   return Object.values(obj).every((value) => value === undefined);
 };
 
-export default validateChapterBuyer;
 export const drawPdf = async (buyer) => {
   const canvas = createCanvas(2339, 1654, 'pdf');
   const ctx = canvas.getContext('2d');
