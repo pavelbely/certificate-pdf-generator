@@ -1,8 +1,11 @@
-import { URL } from 'node:url';
 import express from 'express';
 import mongoose from 'mongoose';
-import { validateChapterBuyer, drawPdf } from './utils.js';
+import 'dotenv/config';
+import { drawPdf } from './utils.js';
+import Chapter from './models/chapter.js';
 // import * as fs from 'fs';
+
+const { DATABASE_URL } = process.env;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,21 +16,28 @@ app.get('/', async (req, res) => {
 
 // TODO change to post when finish testing
 app.get('/certificate', async (req, res) => {
-  if (!req.query.id) {
-    res.status(400).send('Missing id');
-    return;
-  }
-  //Getting the buyer's name from the query if it exists
-  const { nameRu, nameHe } = req.query;
-  //Validating the buyer's name
-  let buyer;
-  try {
-    buyer = await validateChapterBuyer(req.query.id, nameRu, nameHe);
-  } catch (error) {
-    res.status(400).send(error.message);
+  const { chapterId, firstName, lastName } = req.query;
+  if (!chapterId) {
+    res.status(400).send('Missing chapterId');
     return;
   }
 
+  try {
+    const chapter = await Chapter.findById(chapterId);
+    if (!chapter) {
+      res.status(400).send('Chapter not exist');
+      return;
+    }
+  } catch (err) {
+    console.log('test')
+  }
+
+  await maybeSetBuyer(firstName, lastName);
+  const buyer = chapter.buyer;
+  // if (!chapter.buyer) { // TODO
+  if (!buyer?.firstName || !buyer?.lastName) {
+    res.status(400).send('Buyer not set');
+  }
   const pdfStream = await drawPdf(buyer);
   pdfStream.pipe(res);
   res.attachment('pdfname.pdf');
@@ -36,6 +46,9 @@ app.get('/certificate', async (req, res) => {
   // res.send('PDF generated!');
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+mongoose.connect(DATABASE_URL)
+  .then(connection => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
