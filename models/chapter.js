@@ -14,7 +14,6 @@ ChapterSchema.method('maybeSetBuyer',async function maybeSetBuyer(firstName, las
   if (!firstName || !lastName) {
     return;
   }
-  // TODO lastName
   if (this?.buyer?.firstName || this?.buyer?.lastName) {
     throw new Error('Buyer already set')
   }
