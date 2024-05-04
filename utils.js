@@ -14,8 +14,7 @@ export const drawPdf = async (buyer) => {
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
   ctx.font = '30px Arial';
   ctx.fillStyle = 'black';
-  ctx.fillText(`${buyer.nameRu}`, 130, 420);
-  ctx.fillText(`${buyer.nameHe}`, 2030, 420);
+  ctx.fillText(`${buyer.firstName} ${buyer.lastName}`, 130, 420);
   
   const result = canvas.createPDFStream();
   return result;
