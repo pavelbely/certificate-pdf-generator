@@ -14,7 +14,6 @@ ChapterSchema.methods.maybeSetBuyer = async (firstName, lastName) => {
   if (!firstName || !lastName) {
     return;
   }
-  // TODO lastName
   if (this.buyer?.firstName || this.buyer?.lastName) {
     throw new Error('Buyer already set')
   }
