@@ -32,9 +32,8 @@ app.get('/certificate', async (req, res) => {
   try{
     await chapter.maybeSetBuyer(firstName, lastName);
   } catch (err) {
-    // Temporarily disable returning error - to allow testing purchases without cleanup
-    // res.status(400).send(err.message);
-    // return;
+    res.status(400).send(err.message);
+    return;
   }
   const buyer = chapter.buyer;
   if (!buyer?.firstName || !buyer?.lastName) {
