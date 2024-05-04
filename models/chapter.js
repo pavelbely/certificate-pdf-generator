@@ -6,7 +6,6 @@ const ChapterSchema = new mongoose.Schema({
   buyer: {
     firstName: { type: String, required: false, min: 2 },
     lastName: { type: String, required: false, min: 2 },
-    // nameHe: { type: String, required: false, min: 2 },
   },
 });
 

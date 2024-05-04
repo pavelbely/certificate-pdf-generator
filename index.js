@@ -22,14 +22,11 @@ app.get('/certificate', async (req, res) => {
     res.status(400).send('Missing chapterId');
     return;
   }
-  let id;
-  try {
-    id = ObjectId.createFromHexString(chapterId);
-  } catch (err) {
+  if (!mongoose.isValidObjectId(chapterId)) {
     res.status(400).send('Invalid chapterId');
     return;
   }
-  const chapter = await Chapter.findById(id);
+  const chapter = await Chapter.findById(chapterId);
   if (!chapter) {
     res.status(400).send("Chapter doesn't exist");
     return;
