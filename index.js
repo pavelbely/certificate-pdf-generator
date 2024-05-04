@@ -1,13 +1,8 @@
 import { URL } from 'node:url';
 import express from 'express';
-import { createCanvas, loadImage } from 'canvas';
-import path from 'path';
 import mongoose from 'mongoose';
-import Chapter from './Chapter.js';
-import validateChapterBuyer from './utils.js';
+import { validateChapterBuyer, drawPdf } from './utils.js';
 // import * as fs from 'fs';
-
-const __dirname = import.meta.dirname;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -33,19 +28,7 @@ app.get('/certificate', async (req, res) => {
     return;
   }
 
-  const canvas = createCanvas(2339, 1654, 'pdf');
-  const ctx = canvas.getContext('2d');
-
-  const imagePath = path.join(__dirname, '/assets/bg.png');
-  const backgroundImage = await loadImage(imagePath);
-  ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-
-  ctx.font = '30px Arial';
-  ctx.fillStyle = 'black';
-  ctx.fillText(`${buyer.nameRu}`, 130, 420);
-  ctx.fillText(`${buyer.nameHe}`, 2030, 420);
-
-  const pdfStream = canvas.createPDFStream();
+  const pdfStream = await drawPdf(buyer);
   pdfStream.pipe(res);
   res.attachment('pdfname.pdf');
 
