@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import 'dotenv/config';
 import { drawPdf } from './utils.js';
 import Chapter from './models/chapter.js';
+import { ObjectId } from 'mongodb';
 // import * as fs from 'fs';
 
 const { DATABASE_URL } = process.env;
@@ -21,15 +22,12 @@ app.get('/certificate', async (req, res) => {
     res.status(400).send('Missing chapterId');
     return;
   }
-
+  let id;
   try {
-    const chapter = await Chapter.findById(chapterId);
-    if (!chapter) {
-      res.status(400).send('Chapter not exist');
-      return;
-    }
+    id = ObjectId.createFromHexString(chapterId);
   } catch (err) {
-    console.log('test')
+    res.status(400).send('Invalid chapterId');
+    return;
   }
 
   await maybeSetBuyer(firstName, lastName);
