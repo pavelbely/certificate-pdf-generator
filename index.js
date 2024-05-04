@@ -29,6 +29,11 @@ app.get('/certificate', async (req, res) => {
     res.status(400).send('Invalid chapterId');
     return;
   }
+  const chapter = await Chapter.findById(id);
+  if (!chapter) {
+    res.status(400).send("Chapter doesn't exist");
+    return;
+  }
 
   await maybeSetBuyer(firstName, lastName);
   const buyer = chapter.buyer;
