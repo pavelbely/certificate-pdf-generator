@@ -35,7 +35,7 @@ app.get('/certificate', async (req, res) => {
     return;
   }
 
-  await maybeSetBuyer(firstName, lastName);
+  await chapter.maybeSetBuyer(firstName, lastName);
   const buyer = chapter.buyer;
   // if (!chapter.buyer) { // TODO
   if (!buyer?.firstName || !buyer?.lastName) {
