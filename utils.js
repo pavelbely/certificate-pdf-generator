@@ -1,7 +1,8 @@
-import { registerFont, createCanvas, loadImage } from 'canvas';
+import { URL } from 'node:url';
 import path from 'path';
+import { registerFont, createCanvas, loadImage } from 'canvas';
 
-const __dirname = import.meta.dirname;
+const __dirname = new URL('.', import.meta.url).pathname;
 const BG_IMAGE_PATH = '/assets/bg.png';
 const fontPath = path.join(__dirname, '/assets/NotoSans-Regular.ttf');
 registerFont(fontPath, { family: 'Noto Sans' });
