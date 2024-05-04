@@ -2,7 +2,6 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { drawPdf } from './utils.js';
 import Chapter from './models/chapter.js';
-import { ObjectId } from 'mongodb';
 import dotenv from 'dotenv';
 dotenv.config();
 const { DATABASE_URL } = process.env;
