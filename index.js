@@ -31,8 +31,12 @@ app.get('/certificate', async (req, res) => {
     res.status(400).send("Chapter doesn't exist");
     return;
   }
-
-  await chapter.maybeSetBuyer(firstName, lastName);
+  try{
+    await chapter.maybeSetBuyer(firstName, lastName);
+  } catch (err) {
+    res.status(400).send(err.message);
+    return;
+  }
   const buyer = chapter.buyer;
   if (!buyer?.firstName || !buyer?.lastName) {
     res.status(400).send('Buyer not set');
