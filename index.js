@@ -1,12 +1,10 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import 'dotenv/config';
 import { drawPdf } from './utils.js';
 import Chapter from './models/chapter.js';
 import { ObjectId } from 'mongodb';
-// import * as fs from 'fs';
-
 const { DATABASE_URL } = process.env;
+const { NODE_ENV } = process.env;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -46,6 +44,7 @@ app.get('/certificate', async (req, res) => {
   pdfStream.pipe(res);
   res.attachment('pdfname.pdf');
   // pdfStream.pipe(fs.createWriteStream('output.pdf'));
+
   // res.send('PDF generated!');
 });
 
