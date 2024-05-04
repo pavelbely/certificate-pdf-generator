@@ -5,12 +5,10 @@ const ChapterSchema = new mongoose.Schema({
   nameHe: { type: String, min: 2 },
   buyer: {
     firstName: { type: String, required: false, min: 2 },
-    // TODO add lastName
+    lastName: { type: String, required: false, min: 2 },
     // nameHe: { type: String, required: false, min: 2 },
   },
 });
-
-const Chapter = mongoose.model('Chapter', ChapterSchema);
 
 ChapterSchema.methods.maybeSetBuyer = async (firstName, lastName) => {
   if (!firstName || !lastName) {
@@ -26,5 +24,7 @@ ChapterSchema.methods.maybeSetBuyer = async (firstName, lastName) => {
   };
   await this.save();
 };
+
+const Chapter = mongoose.model('Chapter', ChapterSchema);
 
 export default Chapter;
