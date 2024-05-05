@@ -43,8 +43,9 @@ app.get('/certificate', async (req, res) => {
   const pdfStream = await drawPdf(buyer);
   pdfStream.pipe(res);
   res.attachment('pdfname.pdf');
-  // pdfStream.pipe(fs.createWriteStream('output.pdf'));
 
+  // Uncomment for local pdf render
+  // pdfStream.pipe(fs.createWriteStream('output.pdf'));
   // res.send('PDF generated!');
 });
 
