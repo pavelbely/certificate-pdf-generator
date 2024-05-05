@@ -1,4 +1,5 @@
-//space reserved for credits to whoever wrote this magnificent code
+// credits to [Stephen P. Morse](mailto:steve@stevemorse.org)
+// https://stevemorse.org/hebrew/eng2heb.html
 
 var ALEF = 'א';
 var BAIS = 'ב';
