@@ -1,5 +1,6 @@
 import { registerFont, createCanvas, loadImage } from 'canvas';
 import path from 'path';
+import { transliterateRuHeb } from './transliterateHeb.js';
 
 const __dirname = import.meta.dirname;
 const BG_IMAGE_PATH = '/assets/bg.png';
@@ -17,6 +18,7 @@ export const drawPdf = async (buyer) => {
   ctx.font = '30px Noto Sans';
   ctx.fillStyle = 'black';
   ctx.fillText(`${buyer.firstName} ${buyer.lastName}`, 130, 420);
+  ctx.fillText(transliterateRuHeb(`${buyer.firstName} ${buyer.lastName}`), 2060, 440)
   
   const result = canvas.createPDFStream();
   return result;
