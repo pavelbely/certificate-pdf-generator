@@ -7,8 +7,8 @@ let __dirname = import.meta.dirname;
 const BG_IMAGE_PATH = '../assets/torah_scroll.png';
 const fontPathRegular = path.join(__dirname, '../assets/Roboto-Regular.ttf');
 registerFont(fontPathRegular, { family: 'Roboto' });
-const fontPathBold = path.join(__dirname, '../assets/Roboto-Bold.ttf');
-registerFont(fontPathBold, { family: 'Roboto' });
+const fontPathBold = path.join(__dirname, '../assets/OpenSans-Bold.ttf');
+registerFont(fontPathBold, { family: 'OpenSans' });
 
 for (let title of Object.keys(chapters)) {
   console.log(title, chapters[title]);
@@ -23,7 +23,7 @@ async function drawImage(title, text) {
   const backgroundImage = await loadImage(imagePath);
 
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-  ctx.font = '90px "Roboto"';
+  ctx.font = 'bold 90px OpenSans';
   ctx.fillStyle = 'black';
   ctx.textAlign = 'center';
 
@@ -38,7 +38,7 @@ async function drawImage(title, text) {
     ctx.fillText(
       `${element}`,
       615,
-      600 + 90 * title_parsed.length + index * 52
+      600 + 20 * title_parsed.length + index * 62
     );
   }
 
