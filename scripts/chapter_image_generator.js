@@ -7,14 +7,13 @@ let __dirname = import.meta.dirname;
 const BG_IMAGE_PATH = '../assets/torah_scroll.png';
 const fontPathRegular = path.join(__dirname, '../assets/Roboto-Regular.ttf');
 registerFont(fontPathRegular, { family: 'Roboto' });
-console.log(fontPathRegular);
-const fontPathBold = path.join(__dirname, '../assets/Roboto-Bold.ttf');
-registerFont(fontPathBold, { family: 'Roboto', weight: 'bold'});
+const fontPathBold = path.join(__dirname, '../assets/OpenSans-Bold.ttf');
+registerFont(fontPathBold, { family: 'OpenSans' });
 
 for (let title of Object.keys(chapters)) {
   console.log(title, chapters[title]);
   const pdfStream = await drawImage(title, chapters[title]);
-  pdfStream.pipe(fs.createWriteStream(`img_${title}.png`));
+  pdfStream.pipe(fs.createWriteStream(`${title}.png`));
 }
 
 async function drawImage(title, text) {
@@ -24,22 +23,22 @@ async function drawImage(title, text) {
   const backgroundImage = await loadImage(imagePath);
 
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-  ctx.font = 'bold 90px "Roboto"';
+  ctx.font = 'bold 90px OpenSans';
   ctx.fillStyle = 'black';
   ctx.textAlign = 'center';
 
   let title_parsed = textSplit(ctx, title, 600);
   for (let [index, element] of title_parsed.entries()) {
-    ctx.fillText(`${element}`, 615, 500 + index * 90);
+    ctx.fillText(`${element}`, 625, 470);
   }
 
-  ctx.font = '52px "Roboto"';
+  ctx.font = '56px "Roboto"';
   let text_parsed = textSplit(ctx, text, 600);
   for (let [index, element] of text_parsed.entries()) {
     ctx.fillText(
       `${element}`,
       615,
-      600 + 90 * title_parsed.length + index * 52
+      570 + 20 * title_parsed.length + index * 66
     );
   }
 
