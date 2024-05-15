@@ -6,7 +6,9 @@ import { transliterateRuHeb } from './transliterateHeb.js';
 const __dirname = new URL('.', import.meta.url).pathname;
 const BG_IMAGE_PATH = '/assets/bg.png';
 const fontPath = path.join(__dirname, '/assets/NotoSans-Regular.ttf');
+const fontHebrewPath = path.join(__dirname, '/assets/NotoSansHebrew-Regular.ttf');
 registerFont(fontPath, { family: 'Noto Sans' });
+registerFont(fontHebrewPath, { family: 'Noto Sans' });
 
 export const drawPdf = async (buyer) => {
   const canvas = createCanvas(2339, 1654, 'pdf');
