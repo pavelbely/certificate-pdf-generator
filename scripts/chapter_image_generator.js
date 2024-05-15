@@ -13,7 +13,7 @@ registerFont(fontPathBold, { family: 'OpenSans' });
 for (let title of Object.keys(chapters)) {
   console.log(title, chapters[title]);
   const pdfStream = await drawImage(title, chapters[title]);
-  pdfStream.pipe(fs.createWriteStream(`img_${title}.png`));
+  pdfStream.pipe(fs.createWriteStream(`${title}.png`));
 }
 
 async function drawImage(title, text) {
@@ -29,16 +29,16 @@ async function drawImage(title, text) {
 
   let title_parsed = textSplit(ctx, title, 600);
   for (let [index, element] of title_parsed.entries()) {
-    ctx.fillText(`${element}`, 615, 500 + index * 90);
+    ctx.fillText(`${element}`, 625, 470);
   }
 
-  ctx.font = '52px "Roboto"';
+  ctx.font = '56px "Roboto"';
   let text_parsed = textSplit(ctx, text, 600);
   for (let [index, element] of text_parsed.entries()) {
     ctx.fillText(
       `${element}`,
       615,
-      600 + 20 * title_parsed.length + index * 62
+      570 + 20 * title_parsed.length + index * 66
     );
   }
 
